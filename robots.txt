@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kroesslabs.de/sitemap.xml

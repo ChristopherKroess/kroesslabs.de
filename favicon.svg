@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#16203A"/>
+      <stop offset="1" stop-color="#070A12"/>
+    </linearGradient>
+    <linearGradient id="arm" x1="20" y1="32" x2="48" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF9A8B"/>
+      <stop offset="1" stop-color="#FFC57A"/>
+    </linearGradient>
+    <linearGradient id="arm2" x1="20" y1="32" x2="48" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF9A8B"/>
+      <stop offset="1" stop-color="#E5467A"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <g transform="translate(3.5 2.5) scale(.9)">
+    <path d="M17 33 L44 15" stroke="url(#arm)" stroke-width="6" stroke-linecap="round"/>
+    <path d="M17 31 L46 49" stroke="url(#arm2)" stroke-width="6" stroke-linecap="round"/>
+    <rect x="11" y="9" width="8" height="46" rx="4" fill="#EEF2F8"/>
+    <circle cx="46" cy="14" r="8" fill="#FFC15E"/>
+    <circle cx="48" cy="50" r="8" fill="#EE4C7C"/>
+  </g>
+</svg>
