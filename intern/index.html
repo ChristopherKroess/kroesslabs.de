@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Intern · Kroess Labs</title>
+<meta name="description" content="Interner Bereich von Kroess Labs.">
+<meta name="theme-color" content="#070a12">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css?v=3">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kroess Labs">
+<meta property="og:title" content="Intern · Kroess Labs">
+<meta property="og:description" content="Interner Bereich von Kroess Labs.">
+<meta property="og:image" content="https://kroesslabs.de/assets/img/og.jpg">
+<meta property="og:locale" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Kroess Labs", "url": "https://kroesslabs.de/", "logo": "https://kroesslabs.de/assets/img/icon-512.png", "email": "info.sidequests.app@gmail.com", "address": {"@type": "PostalAddress", "addressLocality": "Freiburg im Breisgau", "addressCountry": "DE"}}</script>
+<script defer src="/assets/js/site.js?v=3"></script>
+<meta name="robots" content="noindex, nofollow">
+<style>
+.iv-lock { min-height: 72vh; display: grid; place-items: center; padding: 120px var(--gutter) 64px; }
+.iv-lock form { width: min(420px, 100%); text-align: center; }
+.iv-lock .eyebrow { justify-content: center; }
+.iv-lock h1 { font-size: clamp(28px, 5vw, 38px); margin: 14px 0 10px; }
+.iv-lock p { color: var(--muted); margin: 0 0 22px; }
+.iv-lock input { width: 100%; font: inherit; font-size: 17px; color: var(--text); background: var(--surface);
+  border: 1px solid var(--line-2); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 12px; }
+.iv-lock input:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.iv-lock button { width: 100%; justify-content: center; cursor: pointer; font: inherit; font-weight: 700; }
+.iv-lock button[disabled] { opacity: .6; cursor: progress; }
+.iv-err { min-height: 1.5em; margin: 12px 0 0 !important; color: var(--rose) !important; }
+#iv { display: none; }
+body.iv-open .site-header, body.iv-open .site-footer, body.iv-open .iv-lock, body.iv-open .skip { display: none; }
+body.iv-open #iv { display: block; }
+.iv-bar { position: sticky; top: 0; z-index: 5; height: 52px; display: flex; align-items: center; gap: 6px;
+  padding: 0 max(12px, env(safe-area-inset-right)) 0 max(12px, env(safe-area-inset-left));
+  background: rgba(7, 10, 18, .92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line);
+  overflow-x: auto; scrollbar-width: none; }
+.iv-bar::-webkit-scrollbar { display: none; }
+.iv-bar a.iv-home { display: flex; flex: none; margin-right: 6px; }
+.iv-bar button { flex: none; font: inherit; font-size: 15px; font-weight: 600; color: var(--muted); background: none;
+  border: 0; border-radius: 999px; padding: 8px 14px; cursor: pointer; white-space: nowrap; }
+.iv-bar button[aria-selected="true"] { color: #10131c; background: var(--amber); }
+.iv-bar button:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.iv-panel[hidden] { display: none; }
+.iv-proto { height: calc(100vh - 52px); height: calc(100dvh - 52px); display: grid; place-items: center; padding: 16px; }
+.iv-phone { height: min(844px, 100%); aspect-ratio: 390 / 844; max-width: 100%; border: 10px solid #1a2132;
+  border-radius: 44px; overflow: hidden; background: #000; box-shadow: 0 30px 80px rgba(0, 0, 0, .55), 0 0 0 1px var(--line-2); }
+.iv-phone iframe { display: block; width: 100%; height: 100%; border: 0; background: #fff; }
+@media (max-width: 560px) {
+  .iv-proto { padding: 0; }
+  .iv-bar { gap: 2px; }
+  .iv-bar a.iv-home { margin-right: 2px; }
+  .iv-bar button { font-size: 14px; padding: 7px 10px; }
+  .iv-phone { width: 100%; height: 100%; aspect-ratio: auto; border: 0; border-radius: 0; box-shadow: none; }
+}
+.iv-doc { max-width: 860px; margin: 0 auto; padding: 32px var(--gutter) 96px; line-height: 1.65; overflow-wrap: break-word; }
+.iv-doc h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.15; margin: 0 0 20px; }
+.iv-doc h2 { font-size: clamp(22px, 3.6vw, 28px); margin: 48px 0 12px; padding-top: 20px; border-top: 1px solid var(--line); }
+.iv-doc h3 { font-size: 19px; margin: 32px 0 8px; }
+.iv-doc h4 { font-size: 16px; margin: 24px 0 6px; }
+.iv-doc p, .iv-doc li { color: #d5dbe7; }
+.iv-doc li { margin: 6px 0; }
+.iv-doc ul, .iv-doc ol { padding-left: 22px; }
+.iv-doc a { color: var(--amber); }
+.iv-doc code { font-size: .9em; background: var(--surface-2); padding: 1px 5px; border-radius: 6px; }
+.iv-doc hr { border: 0; border-top: 1px solid var(--line); margin: 36px 0; }
+.iv-table { overflow-x: auto; margin: 18px 0; border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.iv-table table { border-collapse: collapse; width: 100%; font-size: 14.5px; line-height: 1.5; }
+.iv-table th, .iv-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); min-width: 110px; }
+.iv-table th { color: var(--text); background: var(--surface); white-space: nowrap; }
+.iv-table td { color: #d5dbe7; }
+.iv-table tr:last-child td { border-bottom: 0; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/de/" aria-label="Kroess Labs Startseite"><img src="/assets/img/logo.svg" alt="" width="30" height="30"><span><b>Kroess</b> <i>Labs</i></span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#apps">Apps</a>
+      <a class="hide-sm" href="#studio">Studio</a>
+      <a class="hide-sm" href="#contact">Kontakt</a>
+      <a class="lang" href="/" hreflang="en" lang="en" title="This page in English">EN</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="iv-lock">
+  <form id="iv-form" autocomplete="off">
+    <span class="eyebrow">Intern</span>
+    <h1>Nur mit Passwort</h1>
+    <p>Dieser Bereich ist für Leute, die wir eingeladen haben.</p>
+    <input id="iv-pw" type="password" aria-label="Passwort" placeholder="Passwort" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+    <button id="iv-go" class="btn btn-primary" type="submit">Öffnen</button>
+    <p id="iv-err" class="iv-err" role="alert"></p>
+  </form>
+</section>
+<div id="iv"></div>
+<noscript><p style="text-align:center;padding:0 16px 64px">Für diesen Bereich muss JavaScript eingeschaltet sein.</p></noscript>
+<script>
+(function () {
+  var ITER = 310000, MAGIC = "KLINTERN1\n", DATA = "/intern/data.bin?v=7c7cba4f41";
+  var form = document.getElementById("iv-form"), input = document.getElementById("iv-pw"),
+      err = document.getElementById("iv-err"), btn = document.getElementById("iv-go"), root = document.getElementById("iv");
+
+  function decrypt(pw) {
+    var enc = new TextEncoder(), buf;
+    return fetch(DATA).then(function (r) {
+      if (!r.ok) throw new Error("load");
+      return r.arrayBuffer();
+    }).then(function (b) {
+      buf = new Uint8Array(b);
+      return crypto.subtle.importKey("raw", enc.encode(pw), "PBKDF2", false, ["deriveBits"]);
+    }).then(function (km) {
+      return crypto.subtle.deriveBits({ name: "PBKDF2", salt: buf.slice(0, 16), iterations: ITER, hash: "SHA-256" }, km, 384);
+    }).then(function (bits) {
+      bits = new Uint8Array(bits);
+      return crypto.subtle.importKey("raw", bits.slice(0, 32), "AES-CBC", false, ["decrypt"]).then(function (key) {
+        return crypto.subtle.decrypt({ name: "AES-CBC", iv: bits.slice(32, 48) }, key, buf.slice(16));
+      });
+    }).then(function (plain) {
+      var text = new TextDecoder().decode(plain);
+      if (text.slice(0, MAGIC.length) !== MAGIC) throw new Error("wrong");
+      return JSON.parse(text.slice(MAGIC.length));
+    }, function (e) {
+      throw new Error(e && e.message === "load" ? "load" : "wrong");
+    });
+  }
+
+  function show(data) {
+    var bar = document.createElement("div"), panels = {}, tabs = {};
+    bar.className = "iv-bar";
+    bar.setAttribute("role", "tablist");
+    bar.innerHTML = '<a class="iv-home" href="/de/" aria-label="Kroess Labs Startseite"><img src="/assets/img/logo.svg" alt="" width="28" height="28"></a>';
+    root.appendChild(bar);
+
+    function add(id, label, node) {
+      var b = document.createElement("button");
+      b.type = "button"; b.textContent = label;
+      b.setAttribute("role", "tab");
+      b.addEventListener("click", function () { select(id); });
+      bar.appendChild(b); tabs[id] = b;
+      node.className = "iv-panel " + node.className; node.hidden = true;
+      node.setAttribute("role", "tabpanel");
+      root.appendChild(node); panels[id] = node;
+    }
+    function select(id) {
+      if (!panels[id]) return;
+      Object.keys(panels).forEach(function (k) {
+        panels[k].hidden = k !== id;
+        tabs[k].setAttribute("aria-selected", k === id ? "true" : "false");
+      });
+      window.scrollTo(0, 0);
+    }
+
+    var proto = document.createElement("div");
+    proto.className = "iv-proto";
+    var phone = document.createElement("div"), frame = document.createElement("iframe");
+    phone.className = "iv-phone";
+    frame.title = data.proto_label;
+    // No allow-same-origin: the prototype cannot reach this site and cannot
+    // store anything in the browser. Its state lives until the page reloads.
+    frame.setAttribute("sandbox", "allow-scripts");
+    frame.srcdoc = data.proto;
+    phone.appendChild(frame); proto.appendChild(phone);
+    add("proto", data.proto_label, proto);
+
+    data.docs.forEach(function (d) {
+      var el = document.createElement("article");
+      el.className = "iv-doc";
+      el.innerHTML = d.html;
+      add(d.id, d.label, el);
+    });
+    root.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("a[data-tab]");
+      if (a) { e.preventDefault(); select(a.getAttribute("data-tab")); }
+    });
+    document.body.classList.add("iv-open");
+    select("proto");
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!window.crypto || !crypto.subtle) { err.textContent = "Dieser Browser kann die Seite nicht entschlüsseln."; return; }
+    err.textContent = ""; btn.disabled = true;
+    decrypt(input.value).then(function (data) {
+      input.value = "";
+      show(data);
+    }, function (e) {
+      btn.disabled = false;
+      err.textContent = e.message === "load" ? "Die Inhalte konnten nicht geladen werden." : "Das Passwort stimmt nicht.";
+      input.select();
+    });
+  });
+})();
+</script>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="/de/"><img src="/assets/img/logo.svg" alt="" width="30" height="30"><span><b>Kroess</b> <i>Labs</i></span></a>
+        <p>Ein unabhängiges App-Studio aus Freiburg. Kleine Apps für einen helleren Alltag.</p>
+      </div>
+      <div><h4>Apps</h4><ul><li><a href="/de/quevia/">Quevia</a></li><li><a href="/de/spark/">Spark</a></li><li><a href="/de/berryvault/">BerryVault</a></li></ul></div>
+      <div><h4>Studio</h4><ul>
+        <li><a href="/de/#studio">Über das Studio</a></li>
+        <li><a href="mailto:info.sidequests.app@gmail.com">Kontakt</a></li>
+        <li><a href="/" hreflang="en" lang="en">English</a></li>
+        <li><a href="/intern/" rel="nofollow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px;margin-right:6px"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Intern</a></li>
+      </ul></div>
+      <div><h4>Rechtliches</h4><ul>
+        <li><a href="/impressum/">Impressum</a></li>
+        <li><a href="/datenschutz/">Datenschutz</a></li>
+        <li><a href="/quevia/datenschutz/">Datenschutzerklärung Quevia</a></li>
+      </ul></div>
+    </div>
+    <div class="fine"><span>© 2026 Kroess Labs · Freiburg im Breisgau</span><span>Keine Cookies. Kein Tracking. Nichts von Drittanbietern.</span></div>
+  </div>
+</footer>
+</body>
+</html>

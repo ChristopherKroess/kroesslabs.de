@@ -15,6 +15,9 @@ from __future__ import annotations
 import html
 import json
 import pathlib
+import re
+
+import intern
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "src"
@@ -22,6 +25,10 @@ SITE = "https://kroesslabs.de"
 EMAIL = "info.sidequests.app@gmail.com"
 YEAR = 2026
 ASSET_VERSION = "3"
+
+# Version tag of the encrypted internal page (tools/intern.py); None if there is none.
+INTERN_VERSION: str | None = None
+INTERN_URL = "/intern/"
 
 # --------------------------------------------------------------------------
 # Icons (inline SVG, stroke style, 24x24)
@@ -79,7 +86,7 @@ UI = {
         "foot_tag": "An independent app studio from Freiburg, Germany. Small apps for a brighter everyday.",
         "foot_apps": "Apps", "foot_studio": "Studio", "foot_legal": "Legal",
         "about": "About the studio", "contact": "Contact", "legal": "Legal notice", "privacy": "Privacy",
-        "q_privacy": "Quevia privacy policy",
+        "q_privacy": "Quevia privacy policy", "intern": "Internal",
         "fine_right": "No cookies. No tracking. Nothing loaded from third parties.",
         "learn": "Learn more", "status_test": "In testing on Google Play", "status_dev": "In development",
     },
@@ -90,7 +97,7 @@ UI = {
         "foot_tag": "Ein unabhängiges App-Studio aus Freiburg. Kleine Apps für einen helleren Alltag.",
         "foot_apps": "Apps", "foot_studio": "Studio", "foot_legal": "Rechtliches",
         "about": "Über das Studio", "contact": "Kontakt", "legal": "Impressum", "privacy": "Datenschutz",
-        "q_privacy": "Datenschutzerklärung Quevia",
+        "q_privacy": "Datenschutzerklärung Quevia", "intern": "Intern",
         "fine_right": "Keine Cookies. Kein Tracking. Nichts von Drittanbietern.",
         "learn": "Mehr erfahren", "status_test": "Im Test bei Google Play", "status_dev": "In Entwicklung",
     },
@@ -465,6 +472,8 @@ def footer(lang: str, key: str) -> str:
     other = "de" if lang == "en" else "en"
     home = URLS["home"][lang]
     apps = "".join(f'<li><a href="{URLS[a["key"]][lang]}">{a["name"]}</a></li>' for a in APPS)
+    lock = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px;margin-right:6px"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>'
+    intern_link = f'\n        <li><a href="{INTERN_URL}" rel="nofollow">{lock}{t["intern"]}</a></li>' if INTERN_VERSION else ""
     return f"""<footer class="site-footer">
   <div class="wrap">
     <div class="foot">
@@ -476,7 +485,7 @@ def footer(lang: str, key: str) -> str:
       <div><h4>{t['foot_studio']}</h4><ul>
         <li><a href="{home}#studio">{t['about']}</a></li>
         <li><a href="mailto:{EMAIL}">{t['contact']}</a></li>
-        <li><a href="{URLS[key][other]}" hreflang="{other}" lang="{other}">{t['lang_name']}</a></li>
+        <li><a href="{URLS[key][other]}" hreflang="{other}" lang="{other}">{t['lang_name']}</a></li>{intern_link}
       </ul></div>
       <div><h4>{t['foot_legal']}</h4><ul>
         <li><a href="{URLS['legal'][lang]}">{t['legal']}</a></li>
@@ -718,6 +727,15 @@ def not_found() -> str:
     )
 
 
+def intern_page() -> str:
+    """Password-protected internal page. German only, not indexed, not in the sitemap."""
+    extra_head, main = intern.page_parts(INTERN_VERSION)
+    out = page("de", "home", "Intern · Kroess Labs", "Interner Bereich von Kroess Labs.", main)
+    out = re.sub(r'<link rel="(canonical|alternate)"[^>]*>\n', "", out)
+    out = re.sub(r'<meta property="og:url"[^>]*>\n', "", out)
+    return out.replace("</head>", '<meta name="robots" content="noindex, nofollow">\n' + extra_head + "</head>", 1)
+
+
 # --------------------------------------------------------------------------
 # Output
 # --------------------------------------------------------------------------
@@ -747,6 +765,10 @@ def sitemap() -> str:
 
 
 def main() -> None:
+    global INTERN_VERSION
+    INTERN_VERSION = intern.build_data(ROOT)
+    if INTERN_VERSION:
+        write(INTERN_URL, intern_page())
     for lang in ("en", "de"):
         write(URLS["home"][lang], home_page(lang))
         for app in APPS:
