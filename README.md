@@ -48,13 +48,15 @@ Keep it that way, the privacy policies say so.
 
 ## Spark Android preview
 
-The APK supplied on 2026-11-14 is self-hosted at
-`/downloads/spark/spark-0.1-debug.apk`. It is the original signed debug build
+The APK rebuilt from Spark commit `b3b882d` on 2026-11-14 is self-hosted at
+`/downloads/spark/spark-0.1-debug.apk`. It is the signed debug build
 (`com.kroess.spark.debug`, version `0.1-debug`, Android 9+), available from the
 homepage card and Spark page in both languages. It is not a Google Play release.
 
-To publish another build, add it under a new filename in `downloads/spark/`,
+Christopher requested replacing the previous APK at the same address. Download
+buttons use `SPARK_APK_REV` (the first 12 SHA-256 characters) as a cache-busting
+query parameter. Update it whenever replacing the APK. For a version change,
 update `SPARK_APK` and both `download_meta` strings in `tools/build.py`, and
-verify its minimum Android version before updating the copy. The displayed
+verify the minimum Android version before updating the copy. The displayed
 file size is read from the APK when generating the pages. Keep old download
 URLs working. Rebuild and check the pages before publishing.

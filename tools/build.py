@@ -26,6 +26,7 @@ EMAIL = "info.sidequests.app@gmail.com"
 YEAR = 2026
 ASSET_VERSION = "4"
 SPARK_APK = "/downloads/spark/spark-0.1-debug.apk"
+SPARK_APK_REV = "2869b9e62a30"
 
 # Version tag of the encrypted internal page (tools/intern.py); None if there is none.
 INTERN_VERSION: str | None = None
@@ -535,7 +536,7 @@ def chip(status: str, lang: str) -> str:
 
 
 def spark_download(lang: str) -> str:
-    return f'<a class="btn btn-download" href="{SPARK_APK}" download>{icon("download")} {UI[lang]["download"]}</a>'
+    return f'<a class="btn btn-download" href="{SPARK_APK}?v={SPARK_APK_REV}" download>{icon("download")} {UI[lang]["download"]}</a>'
 
 
 # --------------------------------------------------------------------------
