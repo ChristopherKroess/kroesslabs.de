@@ -45,3 +45,16 @@ this domain, and there are no cookies, no analytics and no external scripts.
 Keep it that way, the privacy policies say so.
 
 `.nojekyll` stops GitHub Pages from running Jekyll.
+
+## Spark Android preview
+
+The APK supplied on 2026-11-14 is self-hosted at
+`/downloads/spark/spark-0.1-debug.apk`. It is the original signed debug build
+(`com.kroess.spark.debug`, version `0.1-debug`, Android 9+), available from the
+homepage card and Spark page in both languages. It is not a Google Play release.
+
+To publish another build, add it under a new filename in `downloads/spark/`,
+update `SPARK_APK` and both `download_meta` strings in `tools/build.py`, and
+verify its minimum Android version before updating the copy. The displayed
+file size is read from the APK when generating the pages. Keep old download
+URLs working. Rebuild and check the pages before publishing.

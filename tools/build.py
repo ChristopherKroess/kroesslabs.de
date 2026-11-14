@@ -24,7 +24,8 @@ SRC = ROOT / "src"
 SITE = "https://kroesslabs.de"
 EMAIL = "info.sidequests.app@gmail.com"
 YEAR = 2026
-ASSET_VERSION = "3"
+ASSET_VERSION = "4"
+SPARK_APK = "/downloads/spark/spark-0.1-debug.apk"
 
 # Version tag of the encrypted internal page (tools/intern.py); None if there is none.
 INTERN_VERSION: str | None = None
@@ -35,6 +36,7 @@ INTERN_URL = "/intern/"
 # --------------------------------------------------------------------------
 
 _I = {
+    "download": '<path d="M12 3v12M7 10l5 5 5-5M4 16v4h16v-4"/>',
     "arrow": '<path d="M5 12h14M13 6l6 6-6 6"/>',
     "shield": '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/>',
     "target": '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6" fill="currentColor"/>',
@@ -89,6 +91,8 @@ UI = {
         "q_privacy": "Quevia privacy policy", "intern": "Internal",
         "fine_right": "No cookies. No tracking. Nothing loaded from third parties.",
         "learn": "Learn more", "status_test": "In testing on Google Play", "status_dev": "In development",
+        "status_preview": "Early access", "download": "Download APK",
+        "preview_note": "Early build · Not on Google Play yet",
     },
     "de": {
         "nav_apps": "Apps", "nav_studio": "Studio", "nav_contact": "Kontakt",
@@ -100,6 +104,8 @@ UI = {
         "q_privacy": "Datenschutzerklärung Quevia", "intern": "Intern",
         "fine_right": "Keine Cookies. Kein Tracking. Nichts von Drittanbietern.",
         "learn": "Mehr erfahren", "status_test": "Im Test bei Google Play", "status_dev": "In Entwicklung",
+        "status_preview": "Jetzt ausprobieren", "download": "APK herunterladen",
+        "preview_note": "Frühe Version · Noch nicht bei Google Play",
     },
 }
 
@@ -125,7 +131,7 @@ APPS = [
         },
     },
     {
-        "key": "spark", "name": "Spark", "status": "dev",
+        "key": "spark", "name": "Spark", "status": "preview",
         "icon": "/assets/img/spark-icon.svg", "art": "spark", "flip": False,
         "platforms": {"en": "Android", "de": "Android"},
         "card": {
@@ -275,11 +281,20 @@ APP_PAGES = {
     "spark": {
         "en": {
             "title": "Spark · Keep the spark alive",
-            "desc": "Spark suggests three small gestures every day and three date ideas every week, to keep your relationship warm. Private, no account. In development.",
+            "desc": "Small gestures and date ideas for your relationship. Try Spark’s early Android build: download the APK directly, before its Google Play release.",
             "h1": "Keep the spark alive, one small gesture at a time.",
             "lead": "Every day Spark suggests three small gestures, and every week three date ideas. Pick one, do it, and feel your relationship grow warmer.",
             "cta1": "How it works", "cta2": None,
-            "note": "Spark is in development for Android. Its name may still change before launch.",
+            "note": "Spark isn’t on Google Play yet. You can already try this early Android build here. Features and the name may still change before launch.",
+            "download_h": "Try Spark on Android.",
+            "download_meta": "Early build · Version 0.1-debug · Android 9+",
+            "download_details": "How to install",
+            "download_steps": [
+                "Download the APK on your Android phone, then open the downloaded file.",
+                "If Android asks, allow your browser or file manager to install apps from this source, then tap Install.",
+                "Open Spark and try it out. You can turn that installation permission off again afterwards.",
+            ],
+            "download_feedback": "Have feedback? We’d love to hear it.",
             "how_eyebrow": "How it works", "how_h2": "Small gestures, every day.",
             "how_p": "Love lives in the little things. Spark makes them easy to remember and fun to do.",
             "steps": [
@@ -301,11 +316,20 @@ APP_PAGES = {
         },
         "de": {
             "title": "Spark · Damit der Funke bleibt",
-            "desc": "Spark schlägt jeden Tag drei kleine Gesten und jede Woche drei Date-Ideen vor, damit eure Beziehung warm bleibt. Privat, ohne Konto. In Entwicklung.",
+            "desc": "Kleine Gesten und Date-Ideen für eure Beziehung. Teste die frühe Android-Version von Spark: APK direkt herunterladen, schon vor dem Start bei Google Play.",
             "h1": "Damit der Funke bleibt, eine kleine Geste nach der anderen.",
             "lead": "Jeden Tag schlägt Spark drei kleine Gesten vor, jede Woche drei Date-Ideen. Such dir eine aus, mach sie, und spür, wie eure Beziehung wärmer wird.",
             "cta1": "So funktioniert’s", "cta2": None,
-            "note": "Spark ist für Android in Entwicklung. Der Name kann sich bis zum Start noch ändern.",
+            "note": "Spark gibt es noch nicht bei Google Play. Hier kannst du die frühe Android-Version schon ausprobieren. Funktionen und Name können sich bis zum Start noch ändern.",
+            "download_h": "Probier Spark auf Android aus.",
+            "download_meta": "Frühe Version · Version 0.1-debug · Android 9+",
+            "download_details": "So installierst du Spark",
+            "download_steps": [
+                "Lade die APK auf dein Android-Handy und öffne die heruntergeladene Datei.",
+                "Falls Android nachfragt, erlaube deinem Browser oder Dateimanager die Installation von Apps aus dieser Quelle. Tippe dann auf Installieren.",
+                "Öffne Spark und probier es aus. Die Installationserlaubnis kannst du danach wieder ausschalten.",
+            ],
+            "download_feedback": "Feedback? Wir freuen uns auf deine Nachricht.",
             "how_eyebrow": "So funktioniert’s", "how_h2": "Kleine Gesten, jeden Tag.",
             "how_p": "Liebe steckt in den kleinen Dingen. Spark sorgt dafür, dass du sie nicht vergisst und dass sie Spaß machen.",
             "steps": [
@@ -506,8 +530,12 @@ def page(lang: str, key: str, title: str, desc: str, main: str, preload: str | N
 
 
 def chip(status: str, lang: str) -> str:
-    label = UI[lang]["status_test"] if status == "test" else UI[lang]["status_dev"]
+    label = UI[lang][f"status_{status}"]
     return f'<span class="chip {status}"><span class="dot"></span>{label}</span>'
+
+
+def spark_download(lang: str) -> str:
+    return f'<a class="btn btn-download" href="{SPARK_APK}" download>{icon("download")} {UI[lang]["download"]}</a>'
 
 
 # --------------------------------------------------------------------------
@@ -520,16 +548,25 @@ def home_page(lang: str) -> str:
     t = UI[lang]
     cards = []
     for a in APPS:
-        cards.append(f"""<a class="app-card reveal t-{a['key']}" href="{URLS[a['key']][lang]}">
+        is_spark = a["key"] == "spark"
+        card_tag = 'article' if is_spark else 'a'
+        card_href = '' if is_spark else f' href="{URLS[a["key"]][lang]}"'
+        card_title = f'<a href="{URLS["spark"][lang]}">Spark</a>' if is_spark else a['name']
+        card_more = f'<span class="more">{t["learn"]} {icon("arrow")}</span>'
+        if is_spark:
+            card_more = f'''<div class="card-actions">{spark_download(lang)}
+          <span class="card-download-note">{t['preview_note']}</span>
+          <a class="more" href="{URLS['spark'][lang]}">{t['learn']} {icon('arrow')}</a></div>'''
+        cards.append(f"""<{card_tag} class="app-card reveal t-{a['key']}"{card_href}>
         <div class="art"><img src="/assets/img/{a['art']}-800.webp" alt="" width="800" height="533" loading="lazy" decoding="async"></div>
         <div class="body">
           <img class="icon" src="{a['icon']}" alt="" width="64" height="64">
-          <h3>{a['name']}</h3>
+          <h3>{card_title}</h3>
           <div class="chips">{chip(a['status'], lang)}<span class="chip">{a['platforms'][lang]}</span></div>
           <p>{a['card'][lang]}</p>
-          <span class="more">{t['learn']} {icon('arrow')}</span>
+          {card_more}
         </div>
-      </a>""")
+      </{card_tag}>""")
     cards.append(f"""<div class="app-card soon reveal">
         <div class="soon-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
         <h3>{c['soon_h']}</h3>
@@ -617,6 +654,29 @@ def app_page(app: dict, lang: str) -> str:
     c = APP_PAGES[key][lang]
     t = UI[lang]
     flip = " flip" if app["flip"] else ""
+    hero_actions = f'<a class="btn btn-primary" href="#how">{c["cta1"]} {icon("arrow")}</a>'
+    download_caption = ""
+    availability = f'<div class="note reveal" style="margin-bottom:clamp(48px,7vw,80px)">{icon("info")}<p>{c["note"]}</p></div>'
+    if key == "spark":
+        hero_actions = spark_download(lang) + f'<a class="btn btn-ghost" href="#how">{c["cta1"]} {icon("arrow")}</a>'
+        download_caption = f'<p class="download-caption">{c["download_meta"]}</p>'
+        size = f'{(ROOT / SPARK_APK.lstrip("/")).stat().st_size / 1_000_000:.1f}'
+        if lang == "de":
+            size = size.replace(".", ",")
+        install_steps = "".join(f"<li>{s}</li>" for s in c["download_steps"])
+        availability = f'''<aside class="download-panel reveal" id="download" aria-labelledby="download-title">
+      <div class="download-intro">
+        <span class="eyebrow">{t['status_preview']}</span>
+        <h2 id="download-title">{c['download_h']}</h2>
+        <p>{c['note']}</p>
+        <details class="install-help"><summary>{c['download_details']}</summary><ol>{install_steps}</ol></details>
+      </div>
+      <div class="download-actions">
+        {spark_download(lang)}
+        <p class="download-meta">APK · {size} MB<br>{c['download_meta']}</p>
+        <a class="download-feedback" href="mailto:{EMAIL}">{c['download_feedback']}</a>
+      </div>
+    </aside>'''
     steps = "".join(f"<li><b>{h}</b>{p}</li>" for h, p in c["steps"])
     feats = "".join(
         f'<div class="feature reveal"><div class="ico">{icon(i)}</div><h3>{h}</h3><p>{p}</p></div>'
@@ -661,16 +721,17 @@ def app_page(app: dict, lang: str) -> str:
       <h1 id="hero-title" style="margin-top:22px">{c['h1']}</h1>
       <p class="lead">{c['lead']}</p>
       <div class="actions">
-        <a class="btn btn-primary" href="#how">{c['cta1']} {icon('arrow')}</a>
+        {hero_actions}
         {cta2}
       </div>
+{('      ' + download_caption) if download_caption else ''}
     </div>
   </div>
 </section>
 
 <section class="section t-{key}" id="how" aria-labelledby="how-title">
   <div class="wrap">
-    <div class="note reveal" style="margin-bottom:clamp(48px,7vw,80px)">{icon('info')}<p>{c['note']}</p></div>
+    {availability}
     <div class="split">
       <div class="reveal">
         <span class="eyebrow">{c['how_eyebrow']}</span>

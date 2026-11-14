@@ -127,6 +127,9 @@ h1, h2, h3 { margin: 0; letter-spacing: -0.02em; line-height: 1.08; font-weight:
 .btn-ghost { border-color: var(--line-2); color: var(--text); background: rgba(255, 255, 255, .03); }
 .btn-ghost:hover { border-color: rgba(255, 255, 255, .32); background: var(--surface); }
 .btn svg { width: 18px; height: 18px; }
+.btn-download { background: var(--rose); color: #23141d; box-shadow: 0 10px 32px -16px rgba(255, 154, 139, .7); }
+.btn-download:hover { background: #ffb5a9; box-shadow: 0 12px 32px -12px rgba(255, 154, 139, .55); }
+.btn-download svg { flex: none; }
 
 .chip {
   display: inline-flex; align-items: center; gap: 8px;
@@ -137,6 +140,8 @@ h1, h2, h3 { margin: 0; letter-spacing: -0.02em; line-height: 1.08; font-weight:
 .chip.live .dot { background: #5ee08f; box-shadow: 0 0 10px #5ee08f; }
 .chip.test .dot { background: var(--amber); box-shadow: 0 0 10px var(--amber); }
 .chip.dev .dot { background: #8fb3ff; box-shadow: 0 0 10px #8fb3ff; }
+.chip.preview { border-color: rgba(255, 154, 139, .28); }
+.chip.preview .dot { background: var(--rose); box-shadow: 0 0 10px rgba(255, 154, 139, .6); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 
 .eyebrow {
@@ -228,6 +233,12 @@ section { position: relative; }
 .app-card .body { position: relative; padding: 0 24px 24px; margin-top: -38px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
 .app-card .icon { width: 64px; height: 64px; border-radius: 16px; box-shadow: 0 12px 30px -8px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .1); }
 .app-card h3 { font-size: 1.55rem; margin-top: 6px; }
+.app-card h3 a { text-decoration: none; }
+.app-card h3 a:hover { color: var(--rose); }
+.card-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin-top: auto; padding-top: 10px; }
+.card-actions .btn { font-size: .92rem; padding-inline: 18px; }
+.app-card .card-actions .more { padding-top: 0; }
+.card-download-note { color: var(--muted); font-size: .78rem; }
 .app-card p { color: var(--muted); margin: 0; }
 .app-card .more { margin-top: auto; padding-top: 8px; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--text); }
 .app-card .more svg { width: 18px; height: 18px; transition: transform .25s var(--ease); }
@@ -333,6 +344,30 @@ section { position: relative; }
 }
 .note svg { flex: none; width: 22px; height: 22px; color: #8fb3ff; margin-top: 2px; }
 .note p { margin: 0; }
+
+/* Spark's Android preview: direct download, with installation help on demand. */
+.hero .download-caption { margin: 16px 0 0; color: #c5cbd7; font-size: .8rem; }
+.download-panel {
+  display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 36px;
+  align-items: center; padding: clamp(24px, 4vw, 44px); border-radius: var(--radius);
+  margin-bottom: clamp(48px, 7vw, 80px); border: 1px solid rgba(255, 154, 139, .25);
+  background: radial-gradient(ellipse at top right, rgba(238, 76, 124, .12), transparent 70%), var(--bg-2);
+  scroll-margin-top: 96px;
+}
+.download-intro h2 { font-size: clamp(1.7rem, 3vw, 2.35rem); margin: 14px 0 18px; }
+.download-intro > p { color: var(--muted); max-width: 39em; }
+.download-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.download-meta { color: var(--muted); font-size: .8rem; margin: 0; line-height: 1.8; }
+.download-feedback { color: var(--rose); font-size: .85rem; text-underline-offset: 4px; }
+.install-help { margin-top: 22px; }
+.install-help summary { cursor: pointer; font-weight: 700; font-size: .9rem; }
+.install-help summary::marker { color: var(--rose); }
+.install-help ol { padding-left: 22px; margin-bottom: 0; color: var(--muted); font-size: .9rem; }
+.install-help li + li { margin-top: 10px; }
+@media (max-width: 720px) {
+  .download-panel { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .download-actions { border-top: 1px solid var(--line); padding-top: 24px; }
+}
 
 .legal-links { display: flex; flex-wrap: wrap; gap: 12px; }
 
